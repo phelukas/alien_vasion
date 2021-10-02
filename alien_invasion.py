@@ -6,6 +6,7 @@ import game_functions as gf
 
 
 def run_game():
+    
     # Inicializa o jogo, com as config. do settings
     pygame.init()  
     ai_settings = Settings()
@@ -15,7 +16,7 @@ def run_game():
     pygame.display.set_caption("Alien Invasion")   
 
     # Criando uma espaçonave
-    ship = Ship(screen)
+    ship = Ship(ai_settings, screen)
 
     # Define a cor de fundo 
     bg_color = (230, 230, 230)
@@ -24,7 +25,8 @@ def run_game():
     while True: 
 
         # Observa eventos do teclado e do mouse
-        gf.check_events()
+        gf.check_events(ship)
+        ship.update()
 
         # Redesenha a tela a cada passagem pelo laço
         gf.update_screen(ai_settings, screen, ship)
