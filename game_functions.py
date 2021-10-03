@@ -33,6 +33,10 @@ def check_keydown_events(event, ai_settings, screen, ship, bullets):
     elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings, screen, ship, bullets)
 
+    # Fecha o jogo quando o jogador aperta o Q
+    elif event.key == pygame.K_q:
+        sys.exit()   
+
 
 def check_keyup_events(event, ship):
     """Responde a solturas de teclas"""
@@ -44,7 +48,7 @@ def check_keyup_events(event, ship):
         ship.moving_left = False
 
 
-def update_screen(ai_settings, screen, ship, bullets):
+def update_screen(ai_settings, screen, ship, alien, bullets):
     """Atualiza as imagens na tela e altera para a nova tela."""
 
     # Redesenha a tela a casa passagem pelo laço
@@ -55,6 +59,7 @@ def update_screen(ai_settings, screen, ship, bullets):
         bullet.draw_bullet()
 
     ship.blitme()
+    alien.blitme()
 
 def update_bullets(bullets):
     """"Atualiza a posição dos projéteis e se livra dos projéteis antigos."""
