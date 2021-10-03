@@ -1,8 +1,9 @@
+from pygame.sprite import Group
 from settings import Settings
 from ship import Ship
 
-import pygame
 import game_functions as gf
+import pygame
 
 
 def run_game():
@@ -18,6 +19,9 @@ def run_game():
     # Criando uma espaçonave
     ship = Ship(ai_settings, screen)
 
+    # Cria um grupo na qual serão armazenados os projéteis
+    bullets = Group()
+
     # Define a cor de fundo 
     bg_color = (230, 230, 230)
 
@@ -25,11 +29,14 @@ def run_game():
     while True: 
 
         # Observa eventos do teclado e do mouse
-        gf.check_events(ship)
+        gf.check_events(ai_settings, screen, ship, bullets)
         ship.update()
 
+        # Gerenciador dos tiros
+        gf.update_bullets(bullets)
+
         # Redesenha a tela a cada passagem pelo laço
-        gf.update_screen(ai_settings, screen, ship)
+        gf.update_screen(ai_settings, screen, ship, bullets)
 
         # Deixa a tela mais recente visível
         pygame.display.flip()   
