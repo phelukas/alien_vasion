@@ -17,17 +17,20 @@ def run_game():
     )   
     pygame.display.set_caption("Alien Invasion")   
 
+    # Define a cor de fundo 
+    bg_color = (230, 230, 230) 
+    
     # Criando uma espaçonave
     ship = Ship(ai_settings, screen)
 
     # Cria um grupo na qual serão armazenados os projéteis
     bullets = Group()
 
-    # Define a cor de fundo 
-    bg_color = (230, 230, 230)
+    # Cria um grupo na qual serão armazenados os alienígenas
+    aliens = Group()
 
-    # Cria um alienígina
-    alien = Alien(ai_settings, screen)
+    # Cria uma frota de alienígenas
+    gf.create_fleet(ai_settings, screen, ship, aliens)
 
     # Inicializa o laço principal do jogo
     while True: 
@@ -40,12 +43,6 @@ def run_game():
         gf.update_bullets(bullets)
 
         # Gerenciador de alieníginas
-        gf.update_screen(ai_settings, screen, ship, alien, bullets)
-
-        # Redesenha a tela a cada passagem pelo laço
-        gf.update_screen(ai_settings, screen, ship, alien, bullets)
-
-        # Deixa a tela mais recente visível
-        pygame.display.flip()   
+        gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
 run_game()
