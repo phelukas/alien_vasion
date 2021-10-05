@@ -42,6 +42,9 @@ def run_game():
         # Gerenciador dos tiros
         gf.update_bullets(bullets)
 
+        # Gerenciador dos aliens
+        gf.update_aliens(ai_settings, aliens)
+
         # Gerenciador de alieníginas
         gf.update_screen(ai_settings, screen, ship, aliens, bullets)
 
