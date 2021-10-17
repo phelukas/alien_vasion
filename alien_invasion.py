@@ -1,3 +1,4 @@
+from game_stats import GameStatus
 from pygame.sprite import Group
 from settings import Settings
 from alien import Alien
@@ -15,7 +16,7 @@ def run_game():
     screen = pygame.display.set_mode(
         (ai_settings.screen_width, ai_settings.screen_height)
     )   
-    pygame.display.set_caption("Alien Invasion")   
+    pygame.display.set_caption("Alien Invasion") 
 
     # Define a cor de fundo 
     bg_color = (230, 230, 230) 
@@ -32,18 +33,23 @@ def run_game():
     # Cria uma frota de alienígenas
     gf.create_fleet(ai_settings, screen, ship, aliens)
 
+    # Criando uma instância para armazenar dados estatísticos do jogo
+    stats = GameStatus(ai_settings) 
+
     # Inicializa o laço principal do jogo
     while True: 
 
         # Observa eventos do teclado e do mouse
         gf.check_events(ai_settings, screen, ship, bullets)
-        ship.update()
 
-        # Gerenciador dos tiros
-        gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
-
-        # Gerenciador dos aliens
-        gf.update_aliens(ai_settings, aliens)
+        if stats.game_active:
+            ship.update()
+    
+            # Gerenciador dos tiros
+            gf.update_bullets(ai_settings, screen, ship, aliens, bullets)
+    
+            # Gerenciador dos aliens
+            gf.update_aliens(ai_settings, stats, screen, ship, aliens, bullets)
 
         # Gerenciador de alieníginas
         gf.update_screen(ai_settings, screen, ship, aliens, bullets)
